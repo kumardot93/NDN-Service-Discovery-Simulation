@@ -4,15 +4,16 @@ namespace ns3 {
 namespace ndn {
 
 
-    class ConsumerC1 : public ConsumerCbr {
+    class MultiplierConsumer : public ConsumerCbr {
 
         public:
-
-        // ConsumerC1();
 
         static TypeId
         GetTypeId();
 
+        void SendPacket();
+
+        void ScheduleNextPacket();
     };
 }
 }

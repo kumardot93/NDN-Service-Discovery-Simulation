@@ -1,0 +1,71 @@
+# topo-grid-3x3.txt
+
+# any empty lines and lines starting with '#' symbol is ignored
+#
+# The file should contain exactly two sections: router and link, each starting with the corresponding keyword
+#
+# router section defines topology nodes and their relative positions (e.g., to use in visualizer)
+router
+
+# each line in this section represents one router and should have the following data
+# node  comment     yPos    xPos
+C1   NA          1       1
+C2   NA          2       1
+C3   NA          3       1
+C4   NA          4       1
+C5   NA          5       1
+C6   NA          6       1
+C7   NA          7       1
+C8   NA          8       1
+C9   NA          9       1
+C10   NA          10       2
+C11   NA          11       1
+C12   NA          12       2
+Manager   NA          5       3
+serviceA1   NA          2       5
+serviceA2   NA          3       5
+serviceA3   NA          4       5
+serviceB1   NA          5       5
+serviceB2   NA          6       5
+serviceC1   NA          7       5
+serviceC2   NA          8       5
+serviceC3   NA          9       5
+serviceC4   NA          10      5
+
+
+
+
+# Note that `node` can be any string. It is possible to access to the node by name using Names::Find, see examples.
+
+# link section defines point-to-point links between nodes and characteristics of these links
+link
+
+# Each line should be in the following format (only first two are required, the rest can be omitted)
+# srcNode   dstNode     bandwidth   metric  delay   queue
+# bandwidth: link bandwidth
+# metric: routing metric
+# delay:  link delay
+# queue:  MaxPackets for transmission queue on the link (both directions)
+C1       Manager       1Mbps       1       10ms    10
+C2       Manager       1Mbps       1       10ms    10
+C3       Manager       1Mbps       1       10ms    10
+C4       Manager       1Mbps       1       10ms    10
+C5       Manager       1Mbps       1       10ms    10
+C6       Manager       1Mbps       1       10ms    10
+C7       Manager       1Mbps       1       10ms    10
+C8       Manager       1Mbps       1       10ms    10
+C9       Manager       1Mbps       1       10ms    10
+C10       Manager       1Mbps       1       10ms    10
+C11       Manager       1Mbps       1       10ms    10
+C12       Manager       1Mbps       1       10ms    10
+Manager       serviceA1       1Mbps       1       10ms    10
+Manager       serviceA2       1Mbps       1       10ms    10
+Manager       serviceA3       1Mbps       1       10ms    10
+Manager       serviceB1       1Mbps       1       10ms    10
+Manager       serviceB2       1Mbps       1       10ms    10
+Manager       serviceC1       1Mbps       1       10ms    10
+Manager       serviceC2       1Mbps       1       10ms    10
+Manager       serviceC3       1Mbps       1       10ms    10
+Manager       serviceC4       1Mbps       1       10ms    10
+
+

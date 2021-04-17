@@ -8,6 +8,7 @@ namespace ns3{
 
             void OnInterest(shared_ptr<const Interest> interest);
             private:
+                void multiply(const uint8_t*, uint8_t*);
                 Name m_prefix;
                 Name m_postfix;
                 uint32_t m_virtualPayloadSize;
