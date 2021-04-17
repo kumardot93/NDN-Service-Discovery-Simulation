@@ -112,6 +112,7 @@ main(int argc, char* argv[])
     ndn::AppHelper consumerHelper("ns3::ndn::MainConsumer");
     consumerHelper.SetPrefix(service_map_to_consumer[i]);
     consumerHelper.SetAttribute("Frequency", StringValue("2"));
+    consumerHelper.SetAttribute("Randomize", StringValue("uniform"));
     consumerHelper.Install(Names::Find<Node>(consumer_names[i]));
   }
 
@@ -120,14 +121,20 @@ main(int argc, char* argv[])
   ndnGlobalRoutingHelper.AddOrigins("/Manager", Names::Find<Node>("Manager"));
 
 
-  // Simulator::Schedule(Seconds(5.0), ndn::LinkControlHelper::FailLink, Names::Find<Node>("Manager"), Names::Find<Node>("serviceB1"));
-  // Simulator::Schedule(Seconds(10.0), ndn::LinkControlHelper::UpLink, Names::Find<Node>("Manager"), Names::Find<Node>("serviceB1"));
+  Simulator::Schedule(Seconds(100.0), ndn::LinkControlHelper::FailLink, Names::Find<Node>("Manager"), Names::Find<Node>("serviceB1"));
+  Simulator::Schedule(Seconds(200.0), ndn::LinkControlHelper::UpLink, Names::Find<Node>("Manager"), Names::Find<Node>("serviceB1"));
 
-  // Simulator::Schedule(Seconds(7.0), ndn::LinkControlHelper::FailLink, Names::Find<Node>("Manager"), Names::Find<Node>("serviceA1"));
-  // Simulator::Schedule(Seconds(20.0), ndn::LinkControlHelper::UpLink, Names::Find<Node>("Manager"), Names::Find<Node>("serviceA1"));
+  Simulator::Schedule(Seconds(50.0), ndn::LinkControlHelper::FailLink, Names::Find<Node>("Manager"), Names::Find<Node>("serviceA1"));
+  Simulator::Schedule(Seconds(150.0), ndn::LinkControlHelper::UpLink, Names::Find<Node>("Manager"), Names::Find<Node>("serviceA1"));
   
-  // Simulator::Schedule(Seconds(9.0), ndn::LinkControlHelper::FailLink, Names::Find<Node>("Manager"), Names::Find<Node>("serviceA2"));
-  // Simulator::Schedule(Seconds(25.0), ndn::LinkControlHelper::UpLink, Names::Find<Node>("Manager"), Names::Find<Node>("serviceA2"));
+  Simulator::Schedule(Seconds(50.0), ndn::LinkControlHelper::FailLink, Names::Find<Node>("Manager"), Names::Find<Node>("serviceA2"));
+  Simulator::Schedule(Seconds(150.0), ndn::LinkControlHelper::UpLink, Names::Find<Node>("Manager"), Names::Find<Node>("serviceA2"));
+
+  Simulator::Schedule(Seconds(50.0), ndn::LinkControlHelper::FailLink, Names::Find<Node>("Manager"), Names::Find<Node>("serviceC1"));
+  Simulator::Schedule(Seconds(150.0), ndn::LinkControlHelper::UpLink, Names::Find<Node>("Manager"), Names::Find<Node>("serviceC1"));
+  
+  Simulator::Schedule(Seconds(100.0), ndn::LinkControlHelper::FailLink, Names::Find<Node>("Manager"), Names::Find<Node>("serviceC2"));
+  Simulator::Schedule(Seconds(250.0), ndn::LinkControlHelper::UpLink, Names::Find<Node>("Manager"), Names::Find<Node>("serviceC2"));
 
 
 
