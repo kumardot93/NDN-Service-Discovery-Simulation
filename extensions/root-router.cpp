@@ -65,16 +65,16 @@ namespace ns3
         void
         RootRouter::SendPacket()
         {
-            // m_interestName = Name(CHILDREN_DIRECTORY[ping_index].first);
-            // ping_index = (ping_index + 1) % CHILDREN_DIRECTORY.size();
+            m_interestName = Name(CHILDREN_DIRECTORY[ping_index].first);
+            ping_index = (ping_index + 1) % CHILDREN_DIRECTORY.size();
             ConsumerCbr::SendPacket();
         }
 
         void
         RootRouter::ScheduleNextPacket()
         {
-            // double mean = 8.0 * m_payloadSize / m_desiredRate.GetBitRate ();
-            // std::cout << "next: " << Simulator::Now().ToDouble(Time::S) + mean << "s\n";
+            if (CHILDREN_DIRECTORY.size() == 0)
+                return;
 
             if (m_firstTime)
             {
@@ -82,8 +82,7 @@ namespace ns3
                 m_firstTime = false;
             }
             else if (!m_sendEvent.IsRunning())
-                m_sendEvent = Simulator::Schedule(Seconds(5.0), &RootRouter::SendPacket, this);
-            // m_sendEvent = Simulator::Schedule(Seconds(CHILDREN_DIRECTORY.size() / 0.2), &RootRouter::SendPacket, this);
+                m_sendEvent = Simulator::Schedule(Seconds(30 / CHILDREN_DIRECTORY.size()), &RootRouter::SendPacket, this);
         }
 
         void RootRouter::OnData(shared_ptr<const Data> contentObject)
@@ -103,6 +102,8 @@ namespace ns3
                     CHILDREN_DIRECTORY[i].second = std::time(0) + 120; // expiry time set to current time + 2 minutes
                 }
             }
+            if (CHILDREN_DIRECTORY.size() == 1 && !m_sendEvent.IsRunning())
+                this->ScheduleNextPacket();
         }
 
         void
@@ -146,9 +147,9 @@ namespace ns3
                         break;
                     }
                 }
-                if (!alreadyPresent)
+                if (!alreadyPresent) // new node in local network
                 {
-                    CHILDREN_DIRECTIRY.push_back(local_name)
+                    CHILDREN_DIRECTIRY.push_back(std::make_pair(local_name, std::time(0) + 120));
                 }
             }
 
